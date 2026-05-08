@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+vendor/
+composer.phar
+
+# Environment files - never push these
+.env
+.env.local
+.env.production
+.env.development
+
+# Build folders
+build/
+dist/
+public/build/
+public/storage/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Uploads & cache
+uploads/
+storage/logs/
+storage/framework/cache/
+storage/framework/sessions/
+storage/framework/views/
