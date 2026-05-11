@@ -152,10 +152,23 @@ class PostsController extends Controller
             $updatePost = PostModel::find($id);
             $updatePost->update($request->all());
 
+                Request()->validate([
+            'title'=> 'required|max:200',
+            'category'=> 'required',
+            'description'=> 'required|max:99900',
+        ]);
+        
+
             if($updatePost) {
                 return redirect('/posts/single/'.$updatePost->id.'')->with('update', 'Post Updated Successfully');
             }
      }
+
+    public function search(Request $request) {
+        $search = $request->get('search');
+        $results = PostModel::where('title', 'like', "%{$search}%")->get();
+    return view('posts.search', compact('results'));
+    }
 
     public function contact() {
     return view('pages.contact');
