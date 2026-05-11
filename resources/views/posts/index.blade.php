@@ -14,6 +14,12 @@
           </div>
           @endif
 
+		   @if (\Session::has('update.user'))
+          <div class="alert alert-success">
+            <p>{!!\Session::get('update.user')!!}</p>
+          </div>
+          @endif
+
 				<div class="col-md-4">
                     @foreach ($posts as $post )
                     
