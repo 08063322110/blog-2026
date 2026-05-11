@@ -37,21 +37,25 @@ Route::get('/create-post', [PostsController::class, 'createPost'])->name('posts.
 Route::post('/post-store', [PostsController::class, 'storePost'])->name('posts.store');
 Route::get('/post-delete/{id}', [PostsController::class, 'deletePost'])->name('posts.delete');
 
-//edit
+//edit/update
 Route::get('/post-edit/{id}', [PostsController::class, 'editPost'])->name('posts.edit');
-
-//update
 Route::post('/post-update/{id}', [PostsController::class, 'updatePost'])->name('posts.update');
-});
-
-Route::group(['prefix' => 'categories'], function() {
-    Route::get('/category/{name}', [CategoriesController::class, 'category'])->name('category.single');
+Route::any('/search', [PostsController::class, 'search'])->name('posts.search');
 
 });
 
 Route::group(['prefix' => 'categories'], function() {
-    Route::get('/update/{id}', [UsersController::class, 'updateProfile'])->name('users.update');
+Route::get('/category/{name}', [CategoriesController::class, 'category'])->name('category.single');
+
 });
+
+Route::group(['prefix' => 'users'], function() {
+    Route::get('/edit/{id}', [UsersController::class, 'editProfile'])->name('users.edit');
+    Route::any('/update/{id}', [UsersController::class, 'updateProfile'])->name('users.update');
+    Route::get('/profile/{id}', [UsersController::class, 'profile'])->name('users.profile');
+
+}); 
+
 
 
 

@@ -47,8 +47,9 @@
                                     <span class="navbar-toggler-icon"></span>
                                   </button> --}}
                                   <div class="col-8 text-center">
-                                    <form action="#" class="search-form d-inline-block d-lg-none">
-                                        <input type="text" class="form-control" placeholder="Search...">
+                                    <form action="{{route('posts.search')}}" method="POST" class="search-form d-inline-block d-lg-none">
+                                       @csrf
+                                        <input name="search" type="text" class="form-control" placeholder="Search...">
                                         <span class="bi-search"></span>
                                     </form>
 
@@ -78,11 +79,10 @@
                             {{ Auth::user()->name }}
                         </a>
 
-                        
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                         <a class="dropdown-item" href="{{ route('users.update', Auth::user()->id ) }}">Update Profile </a>
+                            <a class="dropdown-item" href="{{ route('users.profile', Auth::user()->id ) }}">Public Profile </a>
+                            <a class="dropdown-item" href="{{ route('users.edit', Auth::user()->id ) }}">Update Profile </a>
 
-                            
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">
@@ -97,14 +97,14 @@
                                         @endguest
                                     </ul>
                                     
-
                                 </div>
                                 <div class="col-2 text-end">
                                     <a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none light">
                                         <span></span>
                                     </a>
-                                    <form action="#" class="search-form d-none d-lg-inline-block">
-                                        <input type="text" class="form-control" placeholder="Search...">
+                                    <form action="{{route('posts.search')}}" method="POST" class="search-form d-none d-lg-inline-block">
+                                            @csrf
+                                        <input name="search" type="text" class="form-control" placeholder="Search...">
                                         <span class="bi-search"></span>
                                     </form>
                                 </div>
