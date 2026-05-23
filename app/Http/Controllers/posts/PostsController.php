@@ -153,9 +153,9 @@ class PostsController extends Controller
             $updatePost->update($request->all());
 
                 Request()->validate([
-            'title'=> 'required|max:200',
+            'title'=> 'required|max:140',
             'category'=> 'required',
-            'description'=> 'required|max:99900',
+            'description'=> 'required|max:1300',
         ]);
         
 

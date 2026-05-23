@@ -20,7 +20,6 @@
                                 </span>  
                         @enderror
                             
-
                     <div class="form-group">
                         <select name="category" class="form-select" aria-label="Default select example">
                         <option selected>Categories</option>
