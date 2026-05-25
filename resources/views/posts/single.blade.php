@@ -112,7 +112,16 @@
         
           <!-- END sidebar-box -->
           <div class="sidebar-box">
-            <div class="bio text-center">
+            @if($single->user)
+    <img src="{{ asset('assets/user_images/' . $single->user->image) }}" alt="Image Placeholder" class="img-fluid mb-3">
+    <h2>{{ $single->user->name }}</h2>
+    <p class="mb-4">{{ $single->user->bio }}</p>
+    <p><a href="{{ route('users.profile', $single->user->id) }}" class="btn btn-primary btn-sm rounded px-2 py-2">Read my bio</a></p>
+@else
+    <h2>Unknown Author</h2>
+    <p class="mb-4">This user was deleted.</p>
+@endif
+            {{-- <div class="bio text-center">
               <img src="{{asset('assets/user_images/'.$user->image.'')}}" alt="Image Placeholder" class="img-fluid mb-3">
               <div class="bio-body">
                 <h2>{{$user->name}}</h2>
@@ -125,7 +134,7 @@
                   <a href="#" class="p-2"><span class="fa fa-youtube-play"></span></a>
                 </p>
               </div>
-            </div>
+            </div> --}}
           </div>
           <!-- END sidebar-box -->  
           <div style="padding: 25px;" class="sidebar-box">

@@ -49,38 +49,58 @@ class PostsController extends Controller
         'culturePosts', 'culturePostsTwo', 'postPolitics', 'postTravel', 'postTravel', 'postTravelOne', 'postTravelTwo'));
     }
 
+    // public function single($id){
+    //     $single = PostModel::find($id);
+    //     $user = User::find($single->user_id);
+    //     $pupPosts = PostModel::take(3)->orderBy('id', 'desc')->get();
+
+    //     $categories = DB::table('categories')
+    // ->leftJoin('posts', 'posts.category', '=', 'categories.name') // use .category not .category_id
+    // ->select('categories.name', 'categories.id', DB::raw('COUNT(posts.id) as total'))
+    // ->groupBy('categories.id', 'categories.name')
+    // ->get();
+
+    //     // print_r($categories);//    
+        
+    //     //grabbing comments
+    //     $comments = Comment::where('post_id', $id)->get();
+    //     $commentNum = $comments->count();
+        
+    //     $moreBlogs = PostModel::where('category', $single->category)
+    //     ->where('id', '!=', $id)
+    //     ->take(4)
+    //     ->get();
+
+    //     // print_r($moreBlogs);
+
+    //     return view ('posts.single', compact('single', 'user', 'pupPosts', 'categories', 'comments', 'moreBlogs', 'commentNum'));
+    // }
+
     public function single($id){
-        $single = PostModel::find($id);
-        $user = User::find($single->user_id);
-        $pupPosts = PostModel::take(3)->orderBy('id', 'desc')->get();
+    $single = PostModel::with('user')->find($id);
 
-        // $categories = DB::table('categories')
-        // ->join('posts', 'posts.category', '=', 'categories.name')
-        // ->select('categories.name AS name', 'categories.id AS id', DB::raw('COUNT(posts.category) AS total') )
-        // ->groupBy('posts.category')
-        // ->get();
+    if (!$single) {
+        abort(404);
+    }
 
-        $categories = DB::table('categories')
-    ->leftJoin('posts', 'posts.category', '=', 'categories.name') // use .category not .category_id
-    ->select('categories.name', 'categories.id', DB::raw('COUNT(posts.id) as total'))
-    ->groupBy('categories.id', 'categories.name')
-    ->get();
+    $pupPosts = PostModel::take(3)->orderBy('id', 'desc')->get();
 
-        // print_r($categories);//    
-        
-        //grabbing comments
-        $comments = Comment::where('post_id', $id)->get();
-        $commentNum = $comments->count();
-        
-        $moreBlogs = PostModel::where('category', $single->category)
+    $categories = DB::table('categories')
+        ->leftJoin('posts', 'posts.category', '=', 'categories.name')
+        ->select('categories.name', 'categories.id', DB::raw('COUNT(posts.id) as total'))
+        ->groupBy('categories.id', 'categories.name')
+        ->get();
+    
+    $comments = Comment::where('post_id', $id)->get();
+    $commentNum = $comments->count();
+    
+    $moreBlogs = PostModel::where('category', $single->category)
         ->where('id', '!=', $id)
         ->take(4)
         ->get();
 
-        // print_r($moreBlogs);
-
-        return view ('posts.single', compact('single', 'user', 'pupPosts', 'categories','categories', 'comments', 'moreBlogs', 'commentNum'));
-    }
+    return view('posts.single', compact('single', 'pupPosts', 'categories', 'comments', 'moreBlogs', 'commentNum'));
+}
 
     public function storeComment(Request $request){
        
@@ -127,12 +147,24 @@ class PostsController extends Controller
     }
 
     public function deletePost($id){
-        $deletePost  = PostModel::find($id);
-        $deletePost -> delete();
+    $deletePost = PostModel::find($id);
 
-            return redirect('/posts/index')->with('delete', 'Post Deleted Successfully');
-
+    if (!$deletePost) {
+        return redirect('/posts/index')->with('error', 'Post already deleted');
     }
+
+    if ($deletePost->image) {
+        $file_path = public_path('assets/images/' . $deletePost->image);
+        if (file_exists($file_path)) {
+            unlink($file_path);
+        }
+    }
+
+    $deletePost->delete();
+    return redirect('/posts/index')->with('delete', 'Post Deleted Successfully');
+}
+
+    
 
     public function editPost($id){
         $single = PostModel::find($id);

@@ -2,7 +2,7 @@
 
 @section('content')
     
-<div class="section search-result-wrap">
+<div class="section search-result-wrap bg-gray-50 p-4">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">

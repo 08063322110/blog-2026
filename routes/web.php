@@ -62,7 +62,8 @@ Route::post('admin/login', [AdminsController::class, 'checkLogin'])->name('admin
 
 
 Route::group(['prefix' => 'admin', 'middleware' =>  'auth:admin'], function() {
-    //admins
+
+//admins
     Route::get('/', [AdminsController::class, 'index'])->name('admins.dashboard');
     Route::get('/show-admins', [AdminsController::class, 'admins'])->name('admins.show');
     Route::get('/create-admins', [AdminsController::class, 'createAdmins'])->name('admins.create');
@@ -74,6 +75,10 @@ Route::group(['prefix' => 'admin', 'middleware' =>  'auth:admin'], function() {
     Route::get('/delete-categories/{id}', [AdminsController::class, 'deleteCategories'])->name('categories.delete');
     Route::get('/edit-categories/{id}', [AdminsController::class, 'editCategories'])->name('categories.edit');
     Route::put('/update-categories/{id}', [AdminsController::class, 'updateCategories'])->name('categories.update');
+
+    //posts
+    Route::get('/show-posts', [AdminsController::class, 'posts'])->name('posts.show');
+    Route::get('/delete-posts/{id}', [AdminsController::class, 'deletePosts'])->name('posts.delete');
 
 }); 
 

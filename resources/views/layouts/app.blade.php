@@ -29,18 +29,27 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+<style>
+    .bg-light {
+        margin-top: -23px !important;
+        position: relative;
+        z-index: 1;
+    }
+    </style>
+        
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        
     </head>
     <body>
         <div id="app">
 
-        	<nav class="site-nav">
+        	<nav class="site-nav" >
                 <div class="container">
-                    <div class="menu-bg-wrap">
-                        <div class="site-navigation">
-                            <div class="row g-0 align-items-center">
-                                <div class="col-2">
+                    <div class="menu-bg-wrap margin-bottom: 60px">
+                        <div class="site-navigation ">
+                            <div class="row g-0 align-items-center margin-down:49px">
+                                <div class="col-2 " >
                                     <a href="{{url('/')}}" class="logo m-0 float-start">Blogy<span class="text-primary">.</span></a>
                                 </div>
                                   {{-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

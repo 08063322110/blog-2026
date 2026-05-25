@@ -82,7 +82,7 @@ use Illuminate\Support\Facades\Hash;
         return redirect('/admin/show-admins')->with('success', 'Admin Created Successfully');
     }
 
-     public function categories() {
+        public function categories() {
             $categories = Category::all();
             return view('admins.categories', compact('categories'));
         }
@@ -133,5 +133,24 @@ use Illuminate\Support\Facades\Hash;
             return redirect('/admin/show-categories')->with('update', 'Category Updated Successfully');
         }
 
+        //posts
+         public function posts() {
+        $posts = PostModel::all();
 
-}
+            return view('admins.posts', compact('posts'));
+    }
+
+    
+     public function deletePosts($id) {
+
+        $post = PostModel::find($id);
+        $file_path = public_path('assets/images'.$post->image);
+        unlink($file_path);
+
+        $post->delete();
+
+            return redirect('/admin/show-posts')->with('delete', 'Post Deleted Successfully');
+        
+    }
+
+}  
